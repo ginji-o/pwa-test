@@ -116,19 +116,46 @@
       <!-- CardScan -->
       <div class="row mb-1">
         <div class="col-12 px-1">
-          <button id="btnCardScan" type="button" class="btn btn-primary btn-lg btn-block" disabled><i class="fas fa-credit-card"></i>&nbsp;&nbsp;CardScan</button>
+          <button id="btnCardScan" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-credit-card"></i>&nbsp;&nbsp;CardScan</button>
         </div>
       </div>
       <div id="collapseCardScan" class="collapse mb-1">
         <div class="card">
           <div class="card-body pb-0">
             <button id="btnCloseCardScan" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
-            クレジットカード番号:<input type="text" name="cardNumber" autocomplete="cc-number"><br>
-            有効期限（月）:<input type="text" name="cardExpirationMonth" autocomplete="cc-exp-month"><br>
-            有効期限（年）:<input type="text" name="cardExpirationYear" autocomplete="cc-exp-year"><br>
-            セキュリティコード:<input type="text" name="cardCsc" autocomplete="cc-csc"><br>
-            カードタイプ:<input type="text" name="cardType" autocomplete="cc-type"><br>
-            カード名義:<input type="text" name="cardHolder" autocomplete="cc-name"><br>
+            <div class="form-group">
+              <label for="cc-number">クレジットカード番号</label>
+              <input type="text" id="cc-number" name="cc-number" class="form-control" autocomplete="cc-number">
+            </div>
+            <div class="form-group">
+              <label for="cc-type">カードブランド</label>
+              <select id="cc-type" name="cc-type" class="form-control" autocomplete="cc-type">
+                <option value="">選択してください</option>
+                <option value="V">VISA</option>
+                <option value="M">Mastercard</option>
+                <option value="J">JCB</option>
+                <option value="A">American Express</option>
+                <option value="D">Diners Club</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="cc-exp-month">有効期限（月）</label>
+                <input type="text" id="cc-exp-month" name="cc-exp-month" class="form-control" autocomplete="cc-exp-month">
+              </div>
+              <div class="form-group col-6">
+                <label for="cc-exp-year">有効期限（年）</label>
+                <input type="text" id="cc-exp-year" name="cc-exp-year" class="form-control" autocomplete="cc-exp-year">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cc-csc">セキュリティコード</label>
+              <input type="text" id="cc-csc" name="cc-csc" class="form-control" autocomplete="cc-csc">
+            </div>
+            <div class="form-group">
+              <label for="cc-name">カード名義</label>
+              <input type="text" id="cc-name" name="cc-name" class="form-control" autocomplete="cc-name">
+            </div>
           </div>
         </div>
       </div>
