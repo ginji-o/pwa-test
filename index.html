@@ -91,7 +91,7 @@
         <div class="card">
           <div class="card-body pb-0 text-center">
             <button id="btnCloseCameraMedia" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
-            <button id="btnCaptureCameraMedia" type="button" class="btn btn-dark rounded-circle p-0 mb-1" style="width: 3rem;height: 3rem;"><i class="fas fa-camera"></i></button>
+            <button id="btnCaptureCameraMedia" type="button" class="btn btn-dark rounded-circle p-0 mb-1" style="width:3rem;height:3rem;"><i class="fas fa-camera"></i></button>
           </div>
           <div id="imgCameraMedia"></div>
         </div>
@@ -160,24 +160,36 @@
         </div>
       </div>
 
+      <!-- Contacts -->
       <div class="row mb-1">
         <div class="col-12 px-1">
-          <button type="button" class="btn btn-primary btn-lg btn-block" disabled><i class="fas fa-address-book"></i>&nbsp;&nbsp;Contacts</button>
+          <button id="btnContacts" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-address-book"></i>&nbsp;&nbsp;Contacts</button>
+        </div>
+      </div>
+      <div id="collapseContacts" class="collapse mb-1">
+        <div class="card">
+          <div class="card-body text-center">
+            <button id="btnCloseContacts" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
+            <div id="resultContacts"></div>
+          </div>
         </div>
       </div>
 
+      <!-- TouchID -->
       <div class="row mb-1">
         <div class="col-12 px-1">
-          <button type="button" class="btn btn-primary btn-lg btn-block" disabled><i class="fas fa-fingerprint"></i>&nbsp;&nbsp;TouchID</button>
+          <button id="btnTouchId" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-fingerprint"></i>&nbsp;&nbsp;TouchID</button>
         </div>
       </div>
 
+      <!-- Calendar -->
       <div class="row mb-1">
       <div class="col-12 px-1">
         <button type="button" class="btn btn-primary btn-lg btn-block" disabled><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Calendar</button>
       </div>
     </div>
     </div>
+    
     <!-- Optional JavaScript -->
     <script src="assets/vendor/jquery-3.5.0.min.js"></script>
     <script src="assets/vendor/popper.min.js"></script>

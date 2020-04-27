@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**************************************************
  * イベント
@@ -29,11 +29,11 @@ $(function (){
   var URL = window.URL || window.webkitURL;
   var myUrl;
 
-  $('#btnCameraFile').on('change', function() {
+  $('#btnCameraFile').on('change', function () {
     var jqueryInput = $(this);
     var numFiles = jqueryInput.get(0).files ? jqueryInput.get(0).files.length : 0;
     var label = jqueryInput.val().replace(/\\/g, '/').replace(/.*\//, '');
-    $('#resultCameraFile').html('<p>' + label + '</p>');
+    $('#resultCameraFile').html('<p style="word-break:break-all;">' + label + '</p>');
 
     if(numFiles > 0){
       if(!window.FileReader){
@@ -45,7 +45,7 @@ $(function (){
         // createObjectURLが利用可能な場合
         myUrl = URL.createObjectURL(file);
         $('#imgCameraFile').html('<img src="' + myUrl + '" class="card-img-bottom" ></img>');
-      }catch (e){
+      }catch(err){
         // createObjectURLが利用不可な場合
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -55,12 +55,12 @@ $(function (){
       }
 
       $(this).prop('disabled', true);
-      $(this).parent().addClass("disabled");
+      $(this).parent().addClass('disabled');
       $('#collapseCameraFile').collapse('show'); // イメージエリアを表示
     } else {
       $('#collapseCameraFile').collapse('hide'); // イメージエリアを非表示
       $('#imgCameraFile').empty();
-      $(this).parent().removeClass("disabled");
+      $(this).parent().removeClass('disabled');
       $(this).prop('disabled', false);
     }
   });
@@ -77,26 +77,26 @@ $(function (){
     $(this).prop('disabled', true);
     $(this).children('i').replaceWith('<i class="spinner-border" style="width: 1.5rem; height: 1.5rem;" role="status" aria-hidden="true"></i>');
     $('#imgCameraMedia').html('<video id="videoCameraMedia" class="card-img-bottom" playsinline muted></video>');
-    startCameraMedia().then(function(stream) {
-      var video = document.getElementById("videoCameraMedia");
+    startCameraMedia().then(function (stream) {
+      var video = document.getElementById('videoCameraMedia');
       myStream = stream;
-      if("srcObject" in video){
+      if('srcObject' in video){
         video.srcObject = myStream;
       }else{
         video.src = window.URL.createObjectURL(myStream);
       }
-      video.onloadedmetadata = function(e) {
+      video.onloadedmetadata = function (e) {
         video.play();
       };
       $('#btnCaptureCameraMedia').prop('disabled', false);
       $('#collapseCameraMedia').collapse('show'); // イメージエリアを表示
       $('#btnCameraMedia').children('i').replaceWith('<i class="fas fa-camera">');
     })
-    .catch(function(err) {
-      alert(err.name + ": " + err.message);
-      console.log(err.name + ": " + err.message);
+    .catch(function (err) {
+      alert(err.name + ': ' + err.message);
+      console.log(err.name + ': ' + err.message);
       if(!!myStream) {
-        myStream.getTracks().forEach(function(track) {
+        myStream.getTracks().forEach(function (track) {
           track.stop();
         });
       }
@@ -113,9 +113,9 @@ $(function (){
     var height = jqueryVideo.height();
 
     $('#imgCameraMedia').html('<canvas id="canvasCameraMedia" class="card-img-bottom" width="' + width + '" height="' + height + '"></canvas>');
-    $('#canvasCameraMedia').get(0).getContext("2d").drawImage(jqueryVideo.get(0), 0, 0, width, height);
+    $('#canvasCameraMedia').get(0).getContext('2d').drawImage(jqueryVideo.get(0), 0, 0, width, height);
     if(!!myStream) {
-      myStream.getTracks().forEach(function(track) {
+      myStream.getTracks().forEach(function (track) {
         track.stop();
       });
     }
@@ -124,7 +124,7 @@ $(function (){
   $('#btnCloseCameraMedia').on('click', function (){
     $('#collapseCameraMedia').collapse('hide'); // イメージエリアを非表示
     if(!!myStream) {
-      myStream.getTracks().forEach(function(track) {
+      myStream.getTracks().forEach(function (track){
         track.stop();
       });
     }
@@ -141,17 +141,17 @@ $(function (){
       '<canvas id="canvasQrScanMedia" class="card-img-bottom d-none"></canvas>'
     );
     
-    startCameraMedia().then(function(stream) {
-      var video = document.getElementById("videoQrScanMedia");
-      var canvas = document.getElementById("canvasQrScanMedia");
-      var canvasCtx = canvas.getContext("2d");
+    startCameraMedia().then(function (stream){
+      var video = document.getElementById('videoQrScanMedia');
+      var canvas = document.getElementById('canvasQrScanMedia');
+      var canvasCtx = canvas.getContext('2d');
       myStream = stream;
-      if("srcObject" in video){
+      if('srcObject' in video){
         video.srcObject = myStream;
       }else{
         video.src = window.URL.createObjectURL(myStream);
       }
-      video.onloadedmetadata = function(e) {
+      video.onloadedmetadata = function (e){
         video.play();
 
         scanQr(canvas, canvasCtx);
@@ -159,11 +159,11 @@ $(function (){
       $('#collapseQrScanMedia').collapse('show'); // イメージエリアを表示
       $('#btnQrScanMedia').children('i').replaceWith('<i class="fas fa-qrcode">');
     })
-    .catch(function(err) {
-      alert(err.name + ": " + err.message);
-      console.log(err.name + ": " + err.message);
+    .catch(function (err){
+      alert(err.name + ': ' + err.message);
+      console.log(err.name + ': ' + err.message);
       if(!!myStream) {
-        myStream.getTracks().forEach(function(track) {
+        myStream.getTracks().forEach(function (track){
           track.stop();
         });
       }
@@ -175,7 +175,7 @@ $(function (){
   $('#btnCloseQrScanMedia').on('click', function (){
     $('#collapseQrScanMedia').collapse('hide'); // イメージエリアを非表示
     if(!!myStream) {
-      myStream.getTracks().forEach(function(track) {
+      myStream.getTracks().forEach(function (track){
         track.stop();
       });
     }
@@ -187,12 +187,127 @@ $(function (){
   // クレジットカードスキャン
   $('#btnCardScan').on('click', function (){
     $(this).prop('disabled', true);
-    $('#collapseCardScan').collapse('show'); // イメージエリアを表示
+    $('#collapseCardScan').collapse('show'); // カードエリアを表示
   });
 
   $('#btnCloseCardScan').on('click', function (){
     $('#collapseCardScan').collapse('hide'); // カードエリアを非表示
     $('#btnCardScan').prop('disabled', false);
+  });
+
+  // 連絡先
+  $('#btnContacts').on('click', function (){
+    $(this).prop('disabled', true);
+
+    readContacts().then(function (contacts){ // デバイスの連絡先にアクセス
+      if(contacts.length){
+        var result = '<p>';
+        contacts.forEach(function(c){
+          result += '<div class="card bg-light text-left mb-1"><div class="card-body p-2">';
+          c.name.forEach(function(n){
+            result += '<h5 class="card-title">' + n + '</h5>';
+          });
+          result += '<p class="card-text" style="word-break:break-all;">';
+          c.tel.forEach(function(t){
+            result += '<i class="fas fa-phone-alt"></i>&nbsp;' + t + '<br>';
+          });
+          c.email.forEach(function(e){
+            result += '<i class="fas fa-envelope"></i>&nbsp;' + e + '<br>';
+          });
+          result += '</p></div></div>';
+        });
+        result += '</p>';
+        $('#resultContacts').html(result);
+        $('#collapseContacts').collapse('show'); // 連絡先エリアを表示
+      }else{
+        $('#btnContacts').prop('disabled', false);
+      }
+    })
+    .catch(function (err){
+      alert(err.name + ': ' + err.message);
+      console.log(err.name + ': ' + err.message);
+      $('#btnContacts').prop('disabled', false);
+    });
+  });
+
+  $('#btnReadContacts').on('click', function (){
+
+  });
+
+  $('#btnCloseContacts').on('click', function (){
+    $('#collapseContacts').collapse('hide'); // 連絡先エリアを非表示
+    $('#resultContacts').empty();
+    $('#btnContacts').prop('disabled', false);
+  });
+
+  // 指紋認証
+  $('#btnTouchId').on('click', function (){
+    if (!window.PublicKeyCredential) {
+      alert('PublicKeyCredentialに対応していないブラウザです。');
+    }
+
+    // 登録のサンプル引数
+    var createCredentialDefaultArgs = {
+      publicKey: {
+        rp: {
+          name: 'WebAuthn Demo'
+        },
+        user: {
+            id: new Uint8Array(16),
+            name: 'test@example.com',
+            displayName: 'Test Name'
+        },
+        pubKeyCredParams: [
+          {
+            type: 'public-key',
+            alg: -7
+          },
+          {
+            type: 'public-key',
+            alg: -257
+          }
+        ],
+        attestation: 'direct',
+        timeout: 60000,
+        challenge: new Uint8Array([ // 本来はサーバーからランダムな値が送られてくる
+            0x8C, 0x0A, 0x26, 0xFF, 0x22, 0x91, 0xC1, 0xE9, 0xB9, 0x4E, 0x2E, 0x17, 0x1A, 0x98, 0x6A, 0x73,
+            0x71, 0x9D, 0x43, 0x48, 0xD5, 0xA7, 0x6A, 0x15, 0x7E, 0x38, 0x94, 0x52, 0x77, 0x97, 0x0F, 0xEF
+        ]).buffer,
+        authenticatorSelection:{
+          authenticatorAttachment:'platform',
+          userVerification:'required'
+        }
+      }
+    };
+
+    // ログインのサンプル引数
+    var getCredentialDefaultArgs = {
+      publicKey: {
+        challenge: new Uint8Array([ // 本来はサーバーからランダムな値が送られてくる
+            0x79, 0x50, 0x68, 0x71, 0xDA, 0xEE, 0xEE, 0xB9, 0x94, 0xC3, 0xC2, 0x15, 0x67, 0x65, 0x26, 0x22,
+            0xE3, 0xF3, 0xAB, 0x3B, 0x78, 0x2E, 0xD5, 0x6F, 0x81, 0x26, 0xE2, 0xA6, 0x01, 0x7D, 0x74, 0x50
+        ]).buffer,
+        timeout: 60000,
+        userVerification:'required'
+      }
+    };
+
+    navigator.credentials.create(createCredentialDefaultArgs)
+    .then(function (cred){
+      var idList = [{
+          id: cred.rawId,
+          transports: ['internal'],
+          type: 'public-key'
+      }];
+      getCredentialDefaultArgs.publicKey.allowCredentials = idList;
+      return navigator.credentials.get(getCredentialDefaultArgs);
+    })
+    .then(function (assertion){
+      alert('認証成功');
+    })
+    .catch(function (err){
+      alert('認証失敗\r\n'+ err);
+    });
   });
 });
 
@@ -231,7 +346,7 @@ function dispMyPlaceApi() {
   };
 
   // 位置情報取得失敗時の関数
-  function error() {
+  function error(){
     $('#resultMapApi').html('<p>位置情報取得に失敗しました。</p>');
   };
 
@@ -243,7 +358,7 @@ function dispMyPlaceApi() {
 /**************************************************
  * 地図(Embed)
  **************************************************/
-function dispMyPlaceEmbed() {
+function dispMyPlaceEmbed(){
   if(!navigator.geolocation){
     //Geolocation APIに対応していない場合
     $('#resultMapEmbed').html('<p>Geolocation APIに対応していないブラウザです。</p>');
@@ -252,7 +367,7 @@ function dispMyPlaceEmbed() {
   }
 
   // 位置情報取得成功時の関数
-  function success(position) {
+  function success(position){
     var latitude  = position.coords.latitude;   // 緯度
     var longitude = position.coords.longitude;  // 経度
 
@@ -265,7 +380,7 @@ function dispMyPlaceEmbed() {
   };
 
   // 位置情報取得失敗時の関数
-  function error() {
+  function error(){
     $('#resultMapEmbed').html('<p>位置情報取得に失敗しました。</p>');
   };
 
@@ -278,13 +393,13 @@ function dispMyPlaceEmbed() {
  * カメラ(Media)
  **************************************************/
 // カメラ画像リアルタイム表示
-function startCameraMedia() {
+function startCameraMedia(){
   if(navigator.mediaDevices === undefined){
     navigator.mediaDevices = {};
   }
 
   if(navigator.mediaDevices.getUserMedia === undefined){
-    navigator.mediaDevices.getUserMedia = function(constraints) {
+    navigator.mediaDevices.getUserMedia = function (constraints){
       var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
   
       if(!getUserMedia){
@@ -297,14 +412,14 @@ function startCameraMedia() {
     }
   }
 
-  return navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: "environment"}});
+  return navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'environment'}});
 }
 
 /**************************************************
  * QRスキャン(Media)
  **************************************************/
 // QRスキャン
-function scanQr(canvas, canvasCtx) {
+function scanQr(canvas, canvasCtx){
   
   var jqueryVideo = $('#videoQrScanMedia');
   if(jqueryVideo.get(0)){
@@ -321,11 +436,11 @@ function scanQr(canvas, canvasCtx) {
       //QRコードがスキャンできた場合
       jqueryVideo.addClass('d-none');
       $(canvas).removeClass('d-none');
-      $('#resultQrScanMedia').html('<p>' + escapeHtml(code.data) + '</p>');
+      $('#resultQrScanMedia').html('<p style="word-break:break-all;">' + escapeHtml(code.data) + '</p>');
       drawLine(canvasCtx, code.location);
     }else{
       //QRコードがスキャンできなかった場合
-      setTimeout(() => {
+      setTimeout(function (){
         scanQr(canvas, canvasCtx);
       }, 300);
     }
@@ -335,7 +450,7 @@ function scanQr(canvas, canvasCtx) {
 }
 
 // QR位置に囲み線を描画
-function drawLine(ctx, pos, options={color:"blue", size:5}){
+function drawLine(ctx, pos, options={color:'blue', size:5}){
   // 線のスタイル
   ctx.strokeStyle = options.color;
   ctx.lineWidth   = options.size;
@@ -348,4 +463,17 @@ function drawLine(ctx, pos, options={color:"blue", size:5}){
   ctx.lineTo(pos.bottomLeftCorner.x, pos.bottomLeftCorner.y);
   ctx.lineTo(pos.topLeftCorner.x, pos.topLeftCorner.y);
   ctx.stroke();
+}
+
+/**************************************************
+ * 連絡先
+ **************************************************/
+function readContacts(){
+  var api = (navigator.contacts || navigator.mozContacts);
+
+  if (api && !!api.select) { // Chrome
+    return api.select(['name' , 'tel', 'email'], {multiple: true});
+  } else {
+    return Promise.reject(new Error('Contacts APIに対応していないブラウザです。'));
+  }
 }

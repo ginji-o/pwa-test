@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 // HTMLエスケープ
 function escapeHtml(str){
   if (!str) return;
-  return str.replace(/[<>&"'`]/g, (match) => {
+  return str.replace(/[<>&"'`]/g, function(match){
     return {
       '<': '&lt;',
       '>': '&gt;',
